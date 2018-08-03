@@ -16,7 +16,6 @@ typedef struct{
 
 }flower_t;
 
-flower_t readCSV(flower_t);
-//char* readCSV();
-//void readCSV(char[]);
+flower_t *readCSV(flower_t *csvData);
+
 #endif

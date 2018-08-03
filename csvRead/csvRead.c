@@ -5,16 +5,23 @@
 
 /*
  * Program notes: last two printed values are duplicates
- *
+ * 
+ * 
+ * floats - 2400 bytes 
+ * Setosa - 11 bytes
+ * Versicolor - 15 bytes
+ * Virginica - 14 bytes
+ * 
+ * Number of bytes in csvData ~ 4500
+ * 
 */
 
-flower_t readCSV(flower_t csvData) {
+flower_t *readCSV(flower_t *csvData) {
+  int counter = 0;
+ 	
+  //csvData = malloc(((counter+1) * (4*sizeof(float))) + (counter * (15*sizeof(char))));
 
-  char buffer[BUFFER_SIZE];
-  int lineCount = 0;
-
-  printf("buffer size: %lu\n", sizeof(buffer));
-
+  csvData = malloc(5000);
   FILE *irisCsv = fopen("iris.csv", "r");
 
   if (!irisCsv) {
@@ -24,30 +31,19 @@ flower_t readCSV(flower_t csvData) {
   }
 
   while (!feof(irisCsv)) {
+  	if(fscanf(irisCsv, "%f,%f,%f,%f,%s\n", &csvData[counter].sL, &csvData[counter].sW, &csvData[counter].pL, &csvData[counter].pW, csvData[counter].fClass) != 0){
 
-    while (fgets(buffer, sizeof(buffer), irisCsv) != NULL) {
-      	if(sscanf(buffer, "%f, %f, %f, %f, %s", &csvData.sL, &csvData.sW, &csvData.pL, &csvData.pW, csvData.fClass) == 0){
 
-            printf("%s\n", buffer); 
+      }else{ 
+ 
 	    printf("scan failed.\n");
             exit(EXIT_FAILURE);
+      
+      } ++counter;
 
-      }else{
-
-	      printf("%f, %f, %f, %f, %s\n", csvData.sL, csvData.sW, csvData.pL, csvData.pW, csvData.fClass);
-
-	      for(int i = 0; i<sizeof(buffer); i++){
-			      
-		if(buffer[i] == '\n') lineCount++;
-      	      
-		}
-	      break;
-    	}
-     }	
   }
-
-     printf("Line count: %d\n", lineCount);
-     return csvData;
+  fclose(irisCsv);
+  return csvData;
 
 }
 
