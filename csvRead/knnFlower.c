@@ -78,7 +78,6 @@ vector_t *evaluateDistance(flower_t *flowerData, flower_t inputFlower, int arrEl
 			flower[i].type = flowerData[i].fClass;
 			flower[i].vectorLength = (sqrt(d_sL*d_sL + d_sW*d_sW + d_pL*d_pL + d_pW*d_pW)*1000); //multiplying by 1000 because sorting function returns type int.	
 		
-		printf("Neighbor #%d\tClass: %s\tVector Length %lf\n", i+1, flower[i].type, flower[i].vectorLength/1000);
 		}
 	}
 		
